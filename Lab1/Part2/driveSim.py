@@ -29,7 +29,7 @@ def simulate(v_func, w_func, t_total=30.0, dt=0.1, pos_init=(0.0, 0.0, 0.0)):
         x[k + 1] = x[k] + v_k * np.cos(theta[k]) * dt
         y[k + 1] = y[k] + v_k * np.sin(theta[k]) * dt
         theta[k + 1] = theta[k] + w_k * dt
-    # record final-step velocities
+    # record final-step velocities to fix plot suddenly falling to 0 
     v_hist[-1] = v_func(t[-1])
     w_hist[-1] = w_func(t[-1])
 
