@@ -39,7 +39,7 @@ def simulate(v_func, w_func, t_total=30.0, dt=0.1, pos_init=(0.0, 0.0, 0.0)):
 # for a given test case
 def plot_case(t, x, y, theta, v_hist, w_hist, title, fname_prefix,out_dir='.'):
 
-    # Top-down trajectory plot (x vs y)
+    # 2D trajectory plot (x vs y)
     fig1, ax1 = plt.subplots(figsize=(6, 6))
     ax1.plot(x, y, linewidth=2)
     ax1.plot(x[0], y[0], 'go', label='Start')
