@@ -1,4 +1,5 @@
-To run the simulation python code for part 2 & 3, numpy must be installed
+To run the simulation python code for part 2 & 3:
+numpy, os, and matplotlib.pyplot must be installed
 
 Part 1 is solved in matlab
 
