@@ -9,4 +9,7 @@ Part 2 & 3 is solved in python
 For part 2 & 3, the simulation is handled in driveSim and omniSim respectively.
 To run the simulations run the main.py file for each respective lab part
 
+.ipynb notebooks for part 2 and 3 has been written in colab. The source .py files
+will be provided in addition to the colab files. 
+
 
