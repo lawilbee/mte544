@@ -10,6 +10,8 @@ To run the simulations run the main.py file for each respective lab part
 .ipynb notebooks for part 2 and 3 has been written in colab. The source .py files
 will be provided in addition to the colab files. 
 
+Plots for both parts 2 & 3 are also saves in 'plots' folder for each part 
+
 Links to the colab notebooks are found below if .ipynb files do not work:
 
 Part 2:

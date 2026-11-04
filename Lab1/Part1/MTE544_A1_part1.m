@@ -21,12 +21,12 @@ G_21 = [cos(gamma) -sin(gamma) l1; sin(gamma) cos(gamma) 0; 0 0 1];
 G_1B = [cos(alpha) -sin(alpha) lB; sin(alpha) cos(alpha) 0; 0 0 1];
 G_Bs = [cos(theta) -sin(theta) x; sin(theta) cos(theta) y; 0 0 1];
 
-%% --- Compose the Transformation Matrix E -> s ---
+%% Compose the Transformation Matrix E -> s
 G_Es = G_Bs * G_1B * G_21 * G_E2;
 disp('Composed transformation matrix G_Es (E to s):');
 disp(G_Es);
 
-%% --- Simplify and display ---
+%% Simplify and display
 G_Es_simp = simplify(G_Es);
 disp('Simplified transformation matrix G_Es (E to s):');
 disp(G_Es_simp);

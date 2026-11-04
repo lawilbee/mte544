@@ -149,6 +149,7 @@ def runSim():
         # Plot sim results
         plot_case(t, x, y, theta, v_hist, w_hist, case['name'], case['prefix'], PLOTS_DIR)
         # Solve and display wheel speeds
-        u_l, u_r = wheelSpeed(case['v_func'], case['w_func'])
-        print(f"\n {case['name']}: u_l={u_l:.3f}, u_r={u_r:.3f} (rad/s)")
+        if(case['prefix'] != 'ii'):
+            u_l, u_r = wheelSpeed(case['v_func'], case['w_func'])
+            print(f"\n {case['name']}: u_l={u_l:.3f}, u_r={u_r:.3f} (rad/s)")
 
