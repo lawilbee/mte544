@@ -8,6 +8,7 @@ Do not use jupyter notebook.
 
 pip install numpy matplotlib pandas scipy
 
+# https://www.youtube.com/watch?v=H7EwHBN9Vus citation for positive definite
 """
 import numpy as np
 import matplotlib.pyplot as plt
