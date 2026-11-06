@@ -24,7 +24,7 @@ r = -1*np.ones(5)
 
 # Solve for coefficients
 A, B, C, D, E = np.linalg.solve(M, r)
-
+print("A: ", A, " B: ",B," C: ", C," D: ",D," E: ", E)
 
 # Solve for b and Q
 P = np.array([[A, B], [B, C]])
@@ -39,6 +39,7 @@ eigvals = np.linalg.eigvalsh(Q)
 print("eigenvalues of Q:", eigvals, "-> ellipse" if np.all(eigvals > 0) else "-> NOT an ellipse")
 print(Q)
 print(b)
+print(alpha)
 
 # Points on the ellipse: p(t) = b + Q^{-1/2} [cos t, sin t]^T
 lam, V = np.linalg.eigh(Q)
