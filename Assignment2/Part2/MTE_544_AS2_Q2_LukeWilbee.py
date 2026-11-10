@@ -58,7 +58,7 @@ def fit_ellipse_subset(points):
     y = points[:, 1]
     # 5x5 matrix of system
     M = np.column_stack([x**2, 2*x*y, y**2, -2*x, -2*y])
-    # Right hand constants matrix
+    # Right hand side constants matrix
     r = -1*np.ones(5)
     # Solve for coefficients
     A, B, C, D, E = np.linalg.solve(M, r)
@@ -69,10 +69,7 @@ def fit_ellipse_subset(points):
     alpha = 1.0 / (np.transpose(d) @ Pinv @ d - 1.0)
     Q = alpha * P
     b = Pinv @ d
-    # Check positive definite
-    #eigvals = np.linalg.eigvalsh(Q)
-    #print("eigenvalues of Q:", eigvals, "-> ellipse" if np.all(eigvals > 0) else "-> NOT an ellipse")
-
+  
     return Q, b
 
 def ransac_ellipse(data, num_iterations=1000, threshold=0.2):
@@ -85,13 +82,13 @@ def ransac_ellipse(data, num_iterations=1000, threshold=0.2):
     n = data.shape[0]
     Q, b = None, None
     bestCount = 0
-    lo, hi = data.min(axis=0), data.max(axis=0) #For b position correction
+    lo, hi = data.min(axis=0), data.max(axis=0) #For b position correction limits
 
     for j in range(num_iterations):
         # Obtain 5 random data points
         ranIdx = np.random.choice(n, 5, replace=False)
         sPoints = data[ranIdx]
-        # Fit an ellipse to random points
+        # Fit an ellipse to random points. Skip if failed
         try:
             Q_i, b_i = fit_ellipse_subset(sPoints)
         except np.linalg.LinAlgError:
