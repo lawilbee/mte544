@@ -68,7 +68,7 @@ def fit_ellipse_subset(points):
     Pinv = np.linalg.inv(P)
     alpha = 1.0 / (np.transpose(d) @ Pinv @ d - 1.0)
     Q = alpha * P
-    b = Pinv @ d 
+    b = Pinv @ d
     # Check positive definite
     #eigvals = np.linalg.eigvalsh(Q)
     #print("eigenvalues of Q:", eigvals, "-> ellipse" if np.all(eigvals > 0) else "-> NOT an ellipse")
@@ -77,6 +77,11 @@ def fit_ellipse_subset(points):
 
 def ransac_ellipse(data, num_iterations=1000, threshold=0.2):
     inliers = []
+    # Given the data sets, perform RANSAC to find the best Q and b as well as the inliers
+    # Hint: You should use fit_ellipse_subset 
+    # Hint: in some case, the Q matrix might not be positive defintie, use is_positive_definite to check.
+    
+    ##### ADD your code here : #####
     n = data.shape[0]
     Q, b = None, None
     bestCount = 0
@@ -108,7 +113,7 @@ def ransac_ellipse(data, num_iterations=1000, threshold=0.2):
             bestCount = count
             Q, b = Q_i, b_i
             inliers = data[mask]
-
+    ##### END #####
     return Q,b,inliers
 
 if __name__ == "__main__":

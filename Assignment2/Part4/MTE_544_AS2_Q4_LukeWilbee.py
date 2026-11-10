@@ -15,7 +15,7 @@ import numpy as np
 def decode_measurement(measurements):
     readings = []
     for measurement in measurements:
-        readings.append(np.argmax(measurement) + 1)  # +1 for 1-based indexing
+        readings.append(int(np.argmax(measurement) + 1))  # +1 for 1-based indexing
     return readings
 
 def moodeng_behavior_update(state, A):
@@ -23,8 +23,8 @@ def moodeng_behavior_update(state, A):
     # randomly return the next state of Moo-Deng based on A
     x_k1 = A[:,state-1] # Find prob of next state given current state
     next_state = int(np.random.choice([1,2,3], p=x_k1)) # Randomly choose next state with probability
-
     return next_state
+
 def sensor_measurement(state, C):
     # Given a state, and the matrix C, 
     # randomly return the encoded measurement based on C
@@ -35,7 +35,7 @@ def sensor_measurement(state, C):
     y_k1 = C[:,state-1] # Find prob of sensor output given a known state
     idx = np.random.choice(3, p=y_k1) # Randomly choose sensor output with probability
     measurement = np.zeros(3)
-    measurement[idx] = 1
+    measurement[idx] = 1 # Create one shot vector for measurement state
     return measurement
 
 def sim_moodeng(initial_state=1,iteration = 20):
@@ -45,8 +45,8 @@ def sim_moodeng(initial_state=1,iteration = 20):
     belief = np.array([1/3, 1/3, 1/3])  # Initial belief for the Bayesian filter
     
     ##### ADD your code here : #####
-    A = np.array([[0.6,0.2,0.2],[0.4,0.4,0.1],[0,0.4,0.7]])
-    C = np.array([[0.8,0.2,0.05],[0.1,0.7,0.1],[0.1,0.1,0.85]])
+    A = np.array([[0.6,0.2,0.2],[0.4,0.4,0.1],[0,0.4,0.7]])     # Define transition matrix A
+    C = np.array([[0.8,0.2,0.05],[0.1,0.7,0.1],[0.1,0.1,0.85]]) # Define sensor matrix C
     ##### END #####
 
     states = []
@@ -77,7 +77,6 @@ def sim_moodeng(initial_state=1,iteration = 20):
 
     
 # Run the simulation
-
 states, measurements, estimated, beliefs = sim_moodeng(initial_state=1, iteration=20)
 
 readings = decode_measurement(measurements)
