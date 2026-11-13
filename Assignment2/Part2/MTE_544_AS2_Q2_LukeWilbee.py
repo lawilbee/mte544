@@ -82,7 +82,9 @@ def ransac_ellipse(data, num_iterations=1000, threshold=0.2):
     n = data.shape[0]
     Q, b = None, None
     bestCount = 0
-    lo, hi = data.min(axis=0), data.max(axis=0) #For b position correction limits
+    lo, hi = data.min(axis=0), data.max(axis=0)
+    center = np.median(data, axis=0)
+    span = hi - lo
 
     for j in range(num_iterations):
         # Obtain 5 random data points
@@ -98,7 +100,10 @@ def ransac_ellipse(data, num_iterations=1000, threshold=0.2):
             continue
         # Check if found b is in reasonable position 
         # (fixes issue with obnormal center location)
-        if not (np.all(b_i >= lo) and np.all(b_i <= hi)):
+        if np.any(np.abs(b_i - center) > 0.25 * span):     # Ensure center (b) near data middle
+            continue
+        semi_axes = 1.0 / np.sqrt(np.linalg.eigvalsh(Q_i))
+        if semi_axes.max() > 0.75 * span.max():            # Ensure ellipse not bigger than data
             continue
         # Find number of inliers
         diff = data - b_i                                   
@@ -124,7 +129,7 @@ if __name__ == "__main__":
     
     # Plot the raw measurements and fitted ellipse
     fig, ax1 = plt.subplots(1, 1, figsize=(16, 8))
-    visualize_data(dataset, ax1, inliers, threshold=0.5)
+    visualize_data(dataset, ax1, inliers, threshold=0.1)
     plot_ellipse(Q, b_est, ax1)
     ax1.set_title("RANSAC Ellipse Fitting with Threshold Visualization")
 

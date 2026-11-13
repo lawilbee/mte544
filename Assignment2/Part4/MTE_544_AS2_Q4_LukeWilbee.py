@@ -65,8 +65,8 @@ def sim_moodeng(initial_state=1,iteration = 20):
         updated_belief =  updated_belief/np.sum(updated_belief) # Update belief for next state, normalized
         estimated_state = int(np.argmax(updated_belief)) + 1    # Select the state with highest probability
 
-        belief = updated_belief
-        state = next_state
+        belief = updated_belief                                 # Update belief at time k
+        state = next_state                                      # Update the actual state at time k
         ##### END #####
         states.append(next_state)
         measurements.append(measurement)
@@ -77,7 +77,7 @@ def sim_moodeng(initial_state=1,iteration = 20):
 
     
 # Run the simulation
-states, measurements, estimated, beliefs = sim_moodeng(initial_state=1, iteration=20)
+states, measurements, estimated, beliefs = sim_moodeng(initial_state=2, iteration=20)
 
 readings = decode_measurement(measurements)
 # Print results
